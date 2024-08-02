@@ -49,7 +49,7 @@ function CreateBudget() {
 
 
   return (
-    <div>
+    <div className='cursor-pointer'>
       <Dialog>
         <DialogTrigger asChild>
             <div className='bg-slate-100 p-10 rounded-md flex flex-col items-center border shadow-sm hover:shadow-md'>
