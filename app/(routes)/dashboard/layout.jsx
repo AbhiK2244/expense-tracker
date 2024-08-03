@@ -10,25 +10,39 @@ import { useRouter } from 'next/navigation'
 
 const DashboardLayout = ({children}) => {
 
-  const user = useUser();
+  const {user, isSignedIn, isLoaded} = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    user && checkUserBudgets();
-  },[user])
+    if (isLoaded && user) {
+      checkUserBudgets();
+    }
+  }, [user, isLoaded]);
 
   const checkUserBudgets = async () => {
     const userEmail = user?.user?.primaryEmailAddress?.emailAddress;
     const result = await db.select().from(Budgets).where(eq(Budgets.createdBy, userEmail));
     console.log(result.length);
 
-    if(result?.length == 7)
+    if(result?.length == 6)
     {
       router.replace('/dashboard/budgets');
     }
   }
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if(!isSignedIn)
+  {
+    console.log("is ", isSignedIn);
+    console.log("user ", user)
+    router.replace("/sign-in")
+  } 
+  
   return (
-    <div>
+    isSignedIn && <div>
         <div className='fixed md:w-64 hidden md:block border shadow-sm'>
             <SideNav/>
         </div>

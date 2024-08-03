@@ -1,6 +1,6 @@
 import React from 'react'
 
-const expenses = () => {
+function expenses() {
   return (
     <div>
       my expenses

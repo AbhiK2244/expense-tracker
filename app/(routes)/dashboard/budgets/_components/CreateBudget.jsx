@@ -19,7 +19,7 @@ import { useUser } from '@clerk/nextjs';
 import { toast } from 'sonner';
   
 
-function CreateBudget() {
+function CreateBudget({refreshData}) {
     const [emoji, setEmoji] = useState('😊');
     const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
     
@@ -30,20 +30,29 @@ function CreateBudget() {
 
     //saving data to databases 
     const saveBudgetToDb = async() => {
-        const userEmail = user?.user?.primaryEmailAddress?.emailAddress;
-        console.log(userEmail)
-        const result = await db.insert(Budgets).values({
-            name,
-            amount,
-            icon:emoji,
-            createdBy: userEmail,
-        }).returning({insertedId: Budgets.id});
-
-        if(result)
+        try
         {
-            toast("New Budget Created!")
-            setAmount("");
-            setName("");
+
+            const userEmail = user?.user?.primaryEmailAddress?.emailAddress;
+            console.log(userEmail)
+            const result = await db.insert(Budgets).values({
+                name,
+                amount,
+                icon:emoji,
+                createdBy: userEmail,
+            }).returning({insertedId: Budgets.id});
+            
+            if(result)
+            {
+                refreshData();
+                toast("New Budget Created!")
+                setAmount("");
+                setName("");
+            }
+        }
+        catch(err)
+        {
+            console.log("Error: ", err);
         }
     }
 
@@ -63,7 +72,7 @@ function CreateBudget() {
             <DialogDescription>
                 <div className='mt-5'>
                         <Button variant='outline' onClick={() =>{setOpenEmojiPicker(!openEmojiPicker)}} >{emoji}</Button>
-                    <div className='absolute'>
+                    <div className='absolute z-10'>
                         <EmojiPicker open={openEmojiPicker}
                         onEmojiClick={(e) => {
                             setEmoji(e.emoji);
