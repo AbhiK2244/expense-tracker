@@ -22,7 +22,7 @@ const DashboardLayout = ({children}) => {
   const checkUserBudgets = async () => {
     const userEmail = user?.user?.primaryEmailAddress?.emailAddress;
     const result = await db.select().from(Budgets).where(eq(Budgets.createdBy, userEmail));
-    console.log(result.length);
+    // console.log(result.length);
 
     if(result?.length == 6)
     {
@@ -36,8 +36,8 @@ const DashboardLayout = ({children}) => {
 
   if(!isSignedIn)
   {
-    console.log("is ", isSignedIn);
-    console.log("user ", user)
+    // console.log("is ", isSignedIn);
+    // console.log("user ", user)
     router.replace("/sign-in")
   } 
   

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { db } from "@/utils/dbConfig";
 import { Budgets, Expenses } from "@/utils/schema";
+import moment from "moment/moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -14,7 +15,7 @@ function AddExpenses({budgetId, userEmail, refreshExpenseData}) {
         name,
         amount,
         budgetId,
-        createdAt: userEmail
+        createdAt: moment().format('DD/MM/YYYY')
     }).returning({insertedId: Budgets.id});
 
     if(result)
