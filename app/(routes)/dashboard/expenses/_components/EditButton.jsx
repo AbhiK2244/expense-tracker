@@ -15,12 +15,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { db } from '@/utils/dbConfig';
 import { Budgets } from '@/utils/schema';
-import { useUser } from '@clerk/nextjs';
 import { toast } from 'sonner';
 import { PenBox } from 'lucide-react'
+import { eq } from 'drizzle-orm';
 
 
-function EditButton({budgetInfo}) {
+function EditButton({budgetInfo, refreshContent}) {
 
 
     const [emoji, setEmoji] = useState(budgetInfo?.icon);
@@ -29,10 +29,28 @@ function EditButton({budgetInfo}) {
     const [name, setName] = useState(budgetInfo?.name);
     const [amount, setAmount] = useState(budgetInfo?.amount);
 
-    const user = useUser();
 
-    const updateBudget = () => {
+    //updating data in database
+    const updateBudget = async() => {
+        try
+        {
+            const result = await db.update(Budgets).set({
+            name,
+            amount,
+            icon:emoji
+            }).where(eq(Budgets.id, budgetInfo.id)).returning();
 
+            if(result)
+            {
+                // console.log("update result",result);
+                toast('Budget Updated');
+                refreshContent();
+            }
+        }
+        catch(err)
+        {
+            console.error("Error:", err);
+        }
     }
 
     useEffect(() => {

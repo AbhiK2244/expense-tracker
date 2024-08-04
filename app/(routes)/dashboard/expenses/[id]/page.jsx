@@ -72,7 +72,7 @@ function expenses({ params }) {
       <div className="text-2xl font-bold flex items-center justify-between">
         <span>My Expenses</span>
         <div className="flex items-center gap-4">
-          <EditButton budgetInfo={budgetInfo} />
+          <EditButton budgetInfo={budgetInfo} refreshContent={getBudgetInfo} />
           <DeleteButton budgetId={params.id} />
         </div>
       </div>
