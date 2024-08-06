@@ -30,8 +30,8 @@ function ExpensesList({expenseList, refreshExpenseTable}) {
         <h2>{expense.name}</h2>
         <h2>{expense.amount}</h2>
         <h2>{expense.createdAt}</h2>
-        <h2>
-            <Trash className='text-red-400 cursor-pointer' onClick={() => deleteExpense(expense)} />
+        <h2 className='flex justify-start' title='Delete item'>
+            <Trash className='text-red-400 cursor-pointer ml-5' onClick={() => deleteExpense(expense)} />
         </h2>
       </div>
       ))}
