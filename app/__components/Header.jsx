@@ -15,7 +15,7 @@ const Header = () => {
 
       {isSignedIn ? <div className='flex justify-end gap-3 items-center'> <Link href={'/dashboard'}><Button>Dashboard</Button></Link> <UserButton/></div>: 
       <Link href={"/sign-in"}>
-        <Button>Get Started</Button>
+        <Button>Sign in</Button>
       </Link> 
       }
       

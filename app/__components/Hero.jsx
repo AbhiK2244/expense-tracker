@@ -1,9 +1,12 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
+import { Button } from '@/components/ui/button'
 
 export default function Hero() {
+  const {isSignedIn} = useUser();
   return (
     <section className="bg-gray-50 flex items-center flex-col">
   <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex">
@@ -18,12 +21,11 @@ export default function Hero() {
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <Link
-          className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-500 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-          href="/sign-in"
-        >
-          Get Started Now
-        </Link>
+      {isSignedIn ? <div className='flex justify-end gap-3 items-center'> <Link  href={'/dashboard'}><Button>Start Creating Budgets</Button></Link></div>: 
+      <Link href={"/sign-in"}>
+       <Button>Get Started Now</Button>
+      </Link> 
+      }
 
        
       </div>
