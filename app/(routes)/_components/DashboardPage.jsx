@@ -95,7 +95,7 @@ function DashboardPage() {
           <div className="ml-2 mt-5 md:mt-0">
             <h2 className="font-bold text-xl">Latest Budgets</h2>
             {budgetList.map((budget) => (
-              <div className="mt-3">
+              <div key={budget.id} className="mt-3">
                 <BudgetItems budget={budget} key={budget.id} />
               </div>
             ))}
