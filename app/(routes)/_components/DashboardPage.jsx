@@ -8,6 +8,8 @@ import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import BarChartDashboard from "./BarChartDashboard";
 import ExpensesList from "../dashboard/expenses/_components/ExpensesList";
 import BudgetItems from "../dashboard/budgets/_components/BudgetItems";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 function DashboardPage() {
     const { user } = useUser();
@@ -80,6 +82,11 @@ function DashboardPage() {
           Hi, <span className="text-primary">{user?.fullName}</span>
         </h2>
         <p className="text-gray-500">let us manage your expenses.</p>
+
+        <div className="flex items-center gap-3 md:hidden lg:hidden my-3">
+          <Link className='md:hidden lg:hidden' href={'/dashboard/budgets'}><Button>Budgets</Button></Link>
+          <Link className='md:hidden lg:hidden' href={'/dashboard/expenses'}><Button>Expenses</Button></Link>
+        </div>
   
         <CardInfo budgetList={budgetList} />
   
