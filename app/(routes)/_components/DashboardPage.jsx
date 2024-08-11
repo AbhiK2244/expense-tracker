@@ -79,7 +79,7 @@ function DashboardPage() {
         <h2 className="font-bold text-2xl">
           Hi, <span className="text-primary">{user?.fullName}</span>
         </h2>
-        <p className="text-gray-500">let's manage your expenses.</p>
+        <p className="text-gray-500">let us manage your expenses.</p>
   
         <CardInfo budgetList={budgetList} />
   
