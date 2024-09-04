@@ -1,9 +1,20 @@
 import { db } from '@/utils/dbConfig'
 import { Expenses } from '@/utils/schema'
 import { eq } from 'drizzle-orm'
-import { Trash } from 'lucide-react'
+import { Trash } from 'lucide-react' 
 import React from 'react'
 import { toast } from 'sonner'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function ExpensesList({expenseList, refreshExpenseTable}) {
 
@@ -31,7 +42,24 @@ function ExpensesList({expenseList, refreshExpenseTable}) {
         <h2>{expense.amount}</h2>
         <h2>{expense.createdAt}</h2>
         <h2 className='flex justify-start' title='Delete item'>
-            <Trash className='text-red-400 cursor-pointer ml-5' onClick={() => deleteExpense(expense)} />
+          <AlertDialog>
+              <AlertDialogTrigger asChild>
+              <Trash className='text-red-400 cursor-pointer ml-5' />
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    this <span className="text-red-700">expense</span>.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction  onClick={() => deleteExpense(expense)}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+          </AlertDialog>
         </h2>
       </div>
       ))}

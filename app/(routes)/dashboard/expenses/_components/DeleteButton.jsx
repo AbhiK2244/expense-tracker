@@ -52,9 +52,9 @@ function DeleteButton({budgetId}) {
         <div>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-        <Button title='Delete Budget Permanently' variant="destructive">
-        <Trash />
-      </Button>
+          <Button title='Delete Budget Permanently' variant="destructive">
+            <Trash />
+          </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
